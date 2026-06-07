@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AmaruPrints — Tu Álbum Favorito en Arte Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+:root{
+  --cream:#FAF8F5;--white:#FFFFFF;--coal:#1A1917;--coal-light:#4A4540;--coal-muted:#9A9490;
+  --border:#EDE9E4;--border-warm:#F3EFE9;--terra:#D4622A;--terra-light:#FDF0EB;
+  --terra-border:#F0C4A8;--gold:#C9963A;--gold-light:#FDF8ED;--sage:#6BA085;
+  --sage-light:#EEF5F1;--sage-border:#C0D9CC;--sage-dark:#2e6b50;--red-err:#D94444;
+  --shadow-soft:0 12px 48px rgba(26,25,23,.09);--shadow-card:0 4px 24px rgba(26,25,23,.07);
+  --radius:20px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--coal);font-family:'DM Sans',sans-serif;max-width:680px;margin:0 auto;overflow-x:hidden}
+
+.announce{background:var(--coal);overflow:hidden;padding:0}
+.announce-track{display:flex;white-space:nowrap;animation:ticker 24s linear infinite}
+.announce-track span{display:inline-flex;align-items:center;padding:10px 28px;font-size:11.5px;color:rgba(255,255,255,.65);gap:6px;flex-shrink:0;letter-spacing:.03em}
+.announce-track span strong{color:var(--terra)}
+.announce-track span::after{content:'✦';opacity:.3;margin-left:20px}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.nav{background:rgba(250,248,245,.96);border-bottom:1px solid var(--border);padding:13px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200;backdrop-filter:blur(14px)}
+.logo{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--coal);letter-spacing:-.02em;display:flex;align-items:center;gap:7px}
+.logo-dot{width:8px;height:8px;background:var(--terra);border-radius:50%;margin-top:1px}
+.logo em{color:var(--terra);font-style:italic}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-timer{font-size:11px;color:var(--coal-muted);display:flex;align-items:center;gap:4px}
+.nav-timer strong{color:var(--terra);font-variant-numeric:tabular-nums}
+.btn-pill{background:var(--terra);color:#fff;border:none;padding:9px 18px;border-radius:50px;font-size:12.5px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .15s;font-family:'DM Sans',sans-serif}
+.btn-pill:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,98,42,.35)}
+
+.hero{background:var(--white);margin:14px;border-radius:var(--radius);padding:36px 24px 30px;text-align:center;box-shadow:var(--shadow-soft);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(212,98,42,.06) 0%,transparent 70%);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--terra-light);border:1px solid var(--terra-border);color:#a04820;border-radius:50px;padding:6px 16px;font-size:10.5px;font-weight:700;margin-bottom:18px;letter-spacing:.06em;text-transform:uppercase}
+.pdot{width:7px;height:7px;background:var(--terra);border-radius:50%;animation:pdot 1.6s infinite;flex-shrink:0}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(212,98,42,.55)}50%{box-shadow:0 0 0 7px rgba(212,98,42,0)}}
+.hero h1{font-family:'Fraunces',serif;font-size:32px;font-weight:600;line-height:1.08;color:var(--coal);margin-bottom:14px;letter-spacing:-.025em}
+.hero h1 em{color:var(--terra);font-style:italic}
+.hero p{font-size:15px;color:var(--coal-light);line-height:1.65;margin-bottom:22px;max-width:420px;margin-left:auto;margin-right:auto}
+.hpills{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.hpill{background:var(--cream);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:11.5px;color:var(--coal);font-weight:500}
+.hpill i{font-size:13px;vertical-align:-2px;margin-right:4px;color:var(--sage)}
+.hero-photo{width:100%;border-radius:14px;overflow:hidden;margin-bottom:24px;position:relative}
+.hero-photo img{width:100%;display:block;object-fit:cover;max-height:300px}
+.hero-photo-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(26,25,23,.7),transparent);padding:16px 18px;text-align:left}
+.hero-photo-overlay span{color:#fff;font-size:12px;font-weight:600;opacity:.9}
+.btn-hero{display:block;width:100%;background:var(--terra);color:#fff;padding:17px 36px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:transform .15s,box-shadow .15s;margin-bottom:12px;font-family:'DM Sans',sans-serif;letter-spacing:.01em}
+.btn-hero:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(212,98,42,.4)}
+.hero-note{font-size:12px;color:var(--coal-muted);display:flex;align-items:center;justify-content:center;gap:5px}
+.hero-note i{font-size:14px;color:var(--sage)}
+
+/* PHOTO STRIP */
+.photo-strip{margin:14px 0;overflow:hidden;border-radius:var(--radius);height:140px;position:relative;background:var(--coal)}
+.strip-track{display:flex;height:100%;animation:strip 28s linear infinite;gap:6px;padding:0 6px}
+.strip-track img{height:100%;width:auto;border-radius:10px;flex-shrink:0;object-fit:cover;opacity:.9}
+.photo-strip::before{content:'';position:absolute;left:0;top:0;bottom:0;width:50px;background:linear-gradient(to right,var(--coal),transparent);z-index:2}
+.photo-strip::after{content:'';position:absolute;right:0;top:0;bottom:0;width:50px;background:linear-gradient(to left,var(--coal),transparent);z-index:2}
+@keyframes strip{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* PHYSICAL BANNER */
+.phys-banner{background:linear-gradient(135deg,#1A1917 0%,#2d2b28 100%);margin:14px;border-radius:var(--radius);padding:26px 22px;position:relative;overflow:hidden;box-shadow:var(--shadow-soft)}
+.phys-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(212,98,42,.14);border:1px solid rgba(212,98,42,.28);color:var(--terra);border-radius:50px;padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:.08em;margin-bottom:12px;text-transform:uppercase}
+.phys-title{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:16px;line-height:1.25}
+.phys-title em{color:var(--terra);font-style:italic}
+.phys-steps{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.phys-step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px;display:flex;align-items:flex-start;gap:9px}
+.phys-icon{width:30px;height:30px;background:rgba(212,98,42,.14);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.phys-icon i{color:var(--terra);font-size:16px}
+.phys-txt strong{display:block;font-size:12px;color:#fff;margin-bottom:1px}
+.phys-txt{font-size:11px;color:rgba(255,255,255,.55);line-height:1.4}
+.phys-end{display:flex;align-items:center;gap:10px;background:rgba(107,160,133,.1);border:1px solid rgba(107,160,133,.22);border-radius:12px;padding:12px 15px;margin-top:12px}
+.phys-end i{color:var(--sage);font-size:22px;flex-shrink:0}
+.phys-end p{font-size:12px;color:rgba(255,255,255,.65);line-height:1.5}
+.phys-end strong{color:var(--sage)}
+
+/* MARQUEE */
+.marquee-strip{background:var(--terra);overflow:hidden;padding:11px 0;margin:14px 0}
+.marquee-inner{display:flex;white-space:nowrap;animation:marq 20s linear infinite}
+.marquee-inner span{padding:0 24px;font-size:11.5px;font-weight:700;color:#fff;letter-spacing:.06em;display:inline-flex;align-items:center;flex-shrink:0;text-transform:uppercase}
+.marquee-inner span::after{content:'✦';opacity:.4;margin-left:20px}
+@keyframes marq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* URGENCY */
+.urgency-wrap{margin:0 14px}
+.urgency{background:var(--white);border-radius:var(--radius);border-left:3.5px solid var(--terra);padding:18px 20px;box-shadow:var(--shadow-card)}
+.urg-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.urg-top span{font-size:13px;font-weight:700;color:#a04820}
+.urg-top i{font-size:18px;color:var(--terra)}
+.urg-sub{font-size:13px;color:var(--coal-light);margin-bottom:12px;line-height:1.55}
+.bar-bg{background:#F0EDE8;border-radius:50px;height:9px;overflow:hidden}
+.bar-fill{background:linear-gradient(90deg,var(--terra),#b84e1c);height:100%;border-radius:50px;width:0;transition:width 2s ease-out}
+.bar-lbl{font-size:11px;color:var(--coal-muted);margin-top:5px;text-align:right}
+
+/* BENEFITS */
+.section{padding:28px 14px}
+.sec-lbl{text-align:center;font-size:11px;color:var(--coal-muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.sec-title{text-align:center;font-family:'Fraunces',serif;font-size:25px;font-weight:600;color:var(--coal);margin-bottom:22px;line-height:1.18}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat-box{background:var(--white);border-radius:14px;padding:14px 10px;text-align:center;border:1px solid var(--border);box-shadow:var(--shadow-card)}
+.stat-num{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--terra)}
+.stat-lbl{font-size:10px;color:var(--coal-muted);margin-top:2px;line-height:1.3}
+.ben-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ben-card{background:var(--white);border-radius:16px;padding:20px 13px;text-align:center;box-shadow:var(--shadow-card);border:1px solid var(--border-warm);transition:transform .2s,box-shadow .2s}
+.ben-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft)}
+.ben-icon{width:48px;height:48px;background:var(--terra-light);border:1px solid var(--terra-border);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.ben-icon i{color:var(--terra);font-size:22px}
+.ben-card h3{font-size:12.5px;font-weight:700;color:var(--coal);margin-bottom:5px}
+.ben-card p{font-size:11px;color:var(--coal-light);line-height:1.5}
+
+/* PROOF QUOTE BANNER — reemplaza la foto oscura */
+.proof-quote{margin:0 14px;border-radius:var(--radius);background:var(--coal);padding:32px 26px;text-align:center;position:relative;overflow:hidden}
+.proof-quote::before{content:'';position:absolute;top:-60px;left:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(212,98,42,.1) 0%,transparent 65%)}
+.proof-quote::after{content:'';position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(107,160,133,.08) 0%,transparent 65%)}
+.pq-icon{font-size:36px;margin-bottom:12px;display:block;position:relative;z-index:1}
+.pq-text{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--cream);line-height:1.35;margin-bottom:10px;position:relative;z-index:1}
+.pq-text em{color:var(--terra);font-style:italic}
+.pq-sub{font-size:13px;color:rgba(255,255,255,.45);position:relative;z-index:1;line-height:1.6}
+.pq-pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px;position:relative;z-index:1}
+.pq-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);border-radius:50px;padding:6px 14px;font-size:11px;display:flex;align-items:center;gap:5px}
+.pq-pill i{color:var(--terra);font-size:12px}
+
+/* GALLERY */
+.gallery-section{margin:14px}
+.gallery-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--coal);margin-bottom:14px;text-align:center}
+.gallery-title em{color:var(--terra);font-style:italic}
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.g-item{border-radius:14px;overflow:hidden;position:relative;background:var(--coal)}
+.g-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.g-item:hover img{transform:scale(1.04)}
+.g-big{grid-column:1/-1;aspect-ratio:16/9}
+.g-port{aspect-ratio:3/4}
+.g-sq{aspect-ratio:1}
+.g-label{position:absolute;bottom:10px;left:10px;background:rgba(26,25,23,.72);backdrop-filter:blur(6px);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:.04em}
+
+/* TESTIMONIALS PLACEHOLDER */
+.test-section{padding:28px 14px}
+.test-placeholder{background:var(--white);border-radius:var(--radius);border:2px dashed var(--border);padding:32px 20px;text-align:center;box-shadow:var(--shadow-card)}
+.test-placeholder i{font-size:36px;color:var(--terra-border);margin-bottom:12px;display:block}
+.test-placeholder h3{font-family:'Fraunces',serif;font-size:17px;color:var(--coal-muted);margin-bottom:6px}
+.test-placeholder p{font-size:13px;color:var(--coal-muted);line-height:1.6}
+
+/* HOW IT WORKS */
+.how-section{background:var(--coal);padding:32px 14px;margin-top:14px}
+.how-section .sec-lbl{color:#5A5550}
+.how-section .sec-title{color:var(--cream);margin-bottom:26px}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.step-it{text-align:center}
+.step-num{width:48px;height:48px;border-radius:50%;background:rgba(212,98,42,.1);border:1.5px solid rgba(212,98,42,.28);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--terra)}
+.step-lbl{font-size:10.5px;color:rgba(255,255,255,.5);line-height:1.4}
+.step-lbl strong{display:block;font-size:11.5px;color:rgba(255,255,255,.82);margin-bottom:2px}
+
+/* REVIEWS carousel */
+.reviews-section{padding:28px 14px}
+.rev-carousel-outer{overflow:hidden;border-radius:var(--radius)}
+.rev-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.rev-slide{flex:0 0 100%;background:var(--white);padding:22px;box-shadow:var(--shadow-card);border:1px solid var(--border-warm);border-radius:var(--radius)}
+.review{background:var(--cream);border-radius:12px;padding:16px;margin-bottom:10px;border:1px solid var(--border)}
+.review:last-child{margin-bottom:0}
+.rev-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rev-av{width:36px;height:36px;background:var(--terra);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;flex-shrink:0}
+.rev-av.gold{background:var(--gold)}
+.rev-av.sage{background:var(--sage)}
+.rev-name{font-size:13px;font-weight:600;color:var(--coal)}
+.rev-city{font-size:11px;color:var(--coal-muted)}
+.rev-stars{margin-left:auto;color:var(--terra);font-size:13px}
+.rev-text{font-size:13px;color:var(--coal-light);line-height:1.6}
+.verified{display:inline-flex;align-items:center;gap:4px;background:var(--sage-light);border:1px solid var(--sage-border);color:var(--sage-dark);border-radius:50px;padding:3px 10px;font-size:10px;font-weight:500;margin-top:8px}
+.verified i{font-size:11px}
+.rev-dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
+.rdot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s}
+.rdot.active{background:var(--terra);width:20px;border-radius:4px}
+
+/* PRICING */
+.pricing{padding:28px 14px}
+.price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.pcard{background:var(--white);border-radius:18px;padding:20px 13px;text-align:center;border:2px solid transparent;box-shadow:var(--shadow-card);position:relative;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s}
+.pcard:hover{border-color:var(--terra-border)}
+.pcard.selected{border-color:var(--terra);box-shadow:0 8px 32px rgba(212,98,42,.18);transform:scale(1.02)}
+.pcard.featured{transform:scale(1.03)}
+.pcard.featured.selected{transform:scale(1.05)}
+.pcard-ribbon{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--terra);color:#fff;font-size:9.5px;font-weight:700;padding:4px 14px;border-radius:50px;white-space:nowrap}
+.pcard-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--coal);margin-bottom:3px;margin-top:10px}
+.pcard.featured .pcard-name{margin-top:14px}
+.pcard-hook{font-size:11px;color:var(--coal-muted);margin-bottom:12px;line-height:1.4}
+.pcard-old{font-size:11.5px;color:var(--coal-muted);text-decoration:line-through;margin-bottom:2px}
+.pcard-price{font-family:'Fraunces',serif;font-size:23px;font-weight:600;color:var(--coal);line-height:1}
+.pcard-sub{font-size:10px;color:var(--coal-muted);margin-bottom:12px}
+.pf{display:flex;align-items:flex-start;gap:5px;font-size:11px;color:var(--coal-light);margin-bottom:4px;text-align:left}
+.pf i{color:var(--sage);font-size:12px;flex-shrink:0;margin-top:1px}
+.selected-check{width:22px;height:22px;background:var(--terra);border-radius:50%;display:none;align-items:center;justify-content:center;margin:10px auto 0}
+.selected-check i{color:#fff;font-size:12px}
+.pcard.selected .selected-check{display:flex}
+.ship-banner{background:var(--sage-light);border:1.5px solid var(--sage-border);border-radius:12px;padding:13px 16px;text-align:center;font-size:13px;color:var(--sage-dark);font-weight:600}
+.ship-banner i{font-size:15px;vertical-align:-2px;margin-right:6px}
+
+/* FORM */
+.form-section{background:var(--coal);padding:32px 14px}
+.form-section .sec-lbl{color:#5A5550}
+.form-section .sec-title{color:var(--cream)}
+.form-wrap{background:var(--white);border-radius:var(--radius);padding:26px}
+.form-head{text-align:center;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border-warm)}
+.form-head h3{font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--coal)}
+.form-head p{font-size:13px;color:var(--coal-muted);margin-top:4px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--coal-light);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.field input,.field select,.field textarea{width:100%;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--coal);font-size:14px;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--terra);background:#fff}
+.field input.error{border-color:var(--red-err);background:#FFF5F5}
+.field textarea{resize:none;height:80px}
+.err-msg{font-size:11px;color:var(--red-err);margin-top:4px;display:none}
+.err-msg.show{display:block}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* PAY OPTIONS — mejoradas visualmente */
+.pay-section{margin-bottom:18px}
+.pay-lbl{font-size:11px;font-weight:600;color:var(--coal-light);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.pay-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay-opt{border:2px solid var(--border);border-radius:16px;padding:16px 14px;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s,transform .15s;background:var(--cream);position:relative;overflow:hidden}
+.pay-opt:hover{border-color:var(--terra-border);transform:translateY(-2px)}
+.pay-opt.active{border-color:var(--terra);background:var(--terra-light);box-shadow:0 6px 20px rgba(212,98,42,.16)}
+.pay-opt-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:22px}
+/* Contra entrega: icono de moto/scooter */
+.pay-opt-icon.cod-ico{background:linear-gradient(135deg,#1A1917,#3a3835)}
+.pay-opt-icon.cod-ico i{color:#fff}
+/* Anticipado: icono de celular con onda */
+.pay-opt-icon.ant-ico{background:linear-gradient(135deg,var(--sage-dark),var(--sage))}
+.pay-opt-icon.ant-ico i{color:#fff}
+.pay-opt-title{font-size:13px;font-weight:700;color:var(--coal);margin-bottom:3px}
+.pay-opt-sub{font-size:11px;color:var(--coal-light);line-height:1.5}
+.pay-chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.chip{background:var(--sage-light);border:1px solid var(--sage-border);color:var(--sage-dark);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
+.chip i{font-size:10px}
+.save-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--sage-light),#ddf0e8);border:1px solid var(--sage-border);color:var(--sage-dark);border-radius:50px;padding:4px 10px;font-size:10.5px;font-weight:700;margin-top:8px}
+.save-badge i{font-size:11px}
+.active-tick{position:absolute;top:10px;right:10px;width:20px;height:20px;background:var(--terra);border-radius:50%;display:none;align-items:center;justify-content:center}
+.active-tick i{color:#fff;font-size:11px}
+.pay-opt.active .active-tick{display:flex}
+
+.nequi-note{background:var(--sage-light);border:1.5px solid var(--sage-border);border-radius:12px;padding:14px 16px;margin-bottom:14px;display:none;gap:10px;align-items:flex-start}
+.nequi-note.show{display:flex;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:translateY(0)}}
+.nequi-note>i{color:var(--sage-dark);font-size:20px;flex-shrink:0;margin-top:1px}
+.nequi-note p{font-size:12px;color:var(--sage-dark);line-height:1.6}
+
+.order-summary{background:var(--cream);border:1.5px solid var(--border);border-radius:14px;padding:18px;margin-bottom:18px}
+.os-title{font-size:13px;font-weight:700;color:var(--coal);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.os-title i{color:var(--terra);font-size:16px}
+.os-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--coal-light);margin-bottom:6px;align-items:center}
+.os-row.disc{color:var(--sage-dark);font-weight:600}
+.os-divider{height:1px;background:var(--border);margin:10px 0}
+.os-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--coal)}
+.os-total .price{color:var(--terra);font-family:'Fraunces',serif;font-size:20px}
+.method-badge{display:inline-flex;align-items:center;gap:4px;background:var(--sage-light);border:1px solid var(--sage-border);color:var(--sage-dark);border-radius:6px;padding:2px 8px;font-size:10px;font-weight:600}
+
+.btn-submit{width:100%;background:linear-gradient(135deg,var(--terra),#b84e1c);color:#fff;border:none;padding:19px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s,box-shadow .15s;letter-spacing:.01em;margin-bottom:16px;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit i{font-size:20px}
+.btn-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,98,42,.42)}
+.btn-submit:disabled{opacity:.7;cursor:not-allowed;transform:none}
+.trust-row{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.trust-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--coal-light);background:var(--cream);border:1px solid var(--border);border-radius:50px;padding:5px 12px}
+.trust-item i{font-size:13px;color:var(--sage)}
+
+/* SHEETS STATUS */
+.sheet-status{display:none;background:var(--sage-light);border:1.5px solid var(--sage-border);border-radius:12px;padding:13px 16px;margin-bottom:14px;align-items:center;gap:10px}
+.sheet-status.show{display:flex;animation:fadeUp .3s ease}
+.sheet-status i{font-size:18px;color:var(--sage-dark);flex-shrink:0}
+.sheet-status p{font-size:12px;color:var(--sage-dark);font-weight:600}
+
+/* FAQ */
+.faq-sec{margin:14px;background:var(--white);border-radius:var(--radius);padding:28px 22px;box-shadow:var(--shadow-card)}
+.faq-item{border-bottom:1px solid var(--border-warm)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{padding:16px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--coal);user-select:none;gap:12px}
+.faq-q i{font-size:16px;color:var(--coal-muted);transition:transform .25s;flex-shrink:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s}
+.faq-a.open{max-height:220px;padding-bottom:14px}
+.faq-a p{font-size:13px;color:var(--coal-light);line-height:1.65}
+
+.footer{background:var(--coal);padding:32px 20px;text-align:center}
+.footer-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--cream);margin-bottom:5px}
+.footer-logo em{color:var(--terra);font-style:italic}
+.footer p{font-size:12px;color:#5A5550}
+.footer-trust{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:16px}
+.footer-trust span{font-size:11px;color:#5A5550;display:flex;align-items:center;gap:4px}
+.footer-trust i{color:var(--sage);font-size:13px}
+
+.sticky-bar{display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:680px;background:#fff;border-top:1px solid var(--border);padding:12px 16px;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(26,25,23,.1);z-index:300}
+.sticky-bar.visible{display:flex}
+.sticky-price strong{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--coal);display:block}
+.sticky-combo{font-size:10px;color:var(--coal-muted)}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE -->
+<div class="announce">
+  <div class="announce-track">
+    <span>Envío gratis a <strong>Colombia entera</strong></span>
+    <span>Cuadros enmarcados <strong>listos para colgar</strong></span>
+    <span>Pago <strong>contra entrega</strong> disponible</span>
+    <span>Producción en <strong>24 horas</strong></span>
+    <span>+200 cuadros entregados</span>
+    <span>Impresión <strong>HD Premium</strong></span>
+    <span>Envío gratis a <strong>Colombia entera</strong></span>
+    <span>Cuadros enmarcados <strong>listos para colgar</strong></span>
+    <span>Pago <strong>contra entrega</strong> disponible</span>
+    <span>Producción en <strong>24 horas</strong></span>
+    <span>+200 cuadros entregados</span>
+    <span>Impresión <strong>HD Premium</strong></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="logo"><div class="logo-dot"></div>Amaru<em>Prints</em></div>
+  <div class="nav-right">
+    <div class="nav-timer"><i class="ti ti-clock"></i>&nbsp;<strong id="navTimer">02:47:18</strong></div>
+    <button class="btn-pill" onclick="goForm()">Pedir ahora</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow"><div class="pdot"></div>Arte físico personalizado</div>
+  <h1>Tu álbum favorito,<br>convertido en <em>arte</em><br>para tu pared</h1>
+  <p>Cuadros premium enmarcados con la portada, el tracklist y el código Spotify de los álbumes que marcaron tu vida. 100% personalizados, listos para colgar.</p>
+  <div class="hpills">
+    <span class="hpill"><i class="ti ti-frame"></i>Marco incluido</span>
+    <span class="hpill"><i class="ti ti-truck"></i>Envío gratis</span>
+    <span class="hpill"><i class="ti ti-cash"></i>Contra entrega</span>
+    <span class="hpill"><i class="ti ti-clock-hour-4"></i>24h producción</span>
+  </div>
+  <div class="hero-photo">
+    <img src="https://drive.google.com/thumbnail?id=1wWNyUIwtfD2DKOZFaePopZYJJJDfAaXL&sz=w800" alt="Cuadros AmaruPrints" loading="eager">
+    <div class="hero-photo-overlay"><span>✦ Cuadros reales — tal como los recibirás</span></div>
+  </div>
+  <button class="btn-hero" onclick="goForm()">Personalizar mi cuadro — Desde $39.900 COP</button>
+  <div class="hero-note"><i class="ti ti-shield-check"></i>Sin tarjeta. Pagas cuando llega a tu puerta.</div>
+</section>
+
+<!-- STRIP -->
+<div class="photo-strip">
+  <div class="strip-track">
+    <img src="https://drive.google.com/thumbnail?id=140ZRCXvzHHDVcTAjNiVuF_OjXFiBooxT&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=19XOYCpawpyKB-fXeDMAmR2sfi-ZAEdM7&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1GWbrNzycNVc5uv1-fNZuLuZZPZ2Rgkr0&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1Scq6pWF_EOhIi05OFw8ro2KVOHXlbsUj&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1NvE7K3U82g7cMiCXp_43MmO300HM_5hC&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1SOrhhvi57VJlZpXYDiUGLBsD5LxzZi-X&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1bsyErhBJ0bt4aJ1jymKrSAznCgrm-p8h&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=140ZRCXvzHHDVcTAjNiVuF_OjXFiBooxT&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=19XOYCpawpyKB-fXeDMAmR2sfi-ZAEdM7&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1GWbrNzycNVc5uv1-fNZuLuZZPZ2Rgkr0&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1Scq6pWF_EOhIi05OFw8ro2KVOHXlbsUj&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1NvE7K3U82g7cMiCXp_43MmO300HM_5hC&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1SOrhhvi57VJlZpXYDiUGLBsD5LxzZi-X&sz=w300" alt="">
+    <img src="https://drive.google.com/thumbnail?id=1bsyErhBJ0bt4aJ1jymKrSAznCgrm-p8h&sz=w300" alt="">
+  </div>
+</div>
+
+<!-- PHYS BANNER -->
+<div class="phys-banner">
+  <div class="phys-tag"><i class="ti ti-package" style="font-size:11px"></i>Producto físico premium</div>
+  <div class="phys-title">Sin buscar imprentas ni marcos.<br>Nosotros hacemos <em>todo</em> por ti.</div>
+  <div class="phys-steps">
+    <div class="phys-step"><div class="phys-icon"><i class="ti ti-palette"></i></div><div class="phys-txt"><strong>Diseñamos</strong>Tu cuadro único a medida</div></div>
+    <div class="phys-step"><div class="phys-icon"><i class="ti ti-printer"></i></div><div class="phys-txt"><strong>Imprimimos</strong>Tinta UV HD profesional</div></div>
+    <div class="phys-step"><div class="phys-icon"><i class="ti ti-frame"></i></div><div class="phys-txt"><strong>Enmarcamos</strong>Con vidrio protector incluido</div></div>
+    <div class="phys-step"><div class="phys-icon"><i class="ti ti-truck"></i></div><div class="phys-txt"><strong>Entregamos</strong>Listo para colgar desde día 1</div></div>
+  </div>
+  <div class="phys-end">
+    <i class="ti ti-check-circle"></i>
+    <p>Sin archivos digitales, sin buscar marcos. Recibes un producto <strong>100% terminado, enmarcado y listo para colgar</strong>.</p>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>+200 cuadros entregados</span><span>Envío gratis</span><span>Código Spotify real</span><span>Marco incluido</span><span>Contra entrega</span><span>Impresión HD</span><span>24h producción</span>
+    <span>+200 cuadros entregados</span><span>Envío gratis</span><span>Código Spotify real</span><span>Marco incluido</span><span>Contra entrega</span><span>Impresión HD</span><span>24h producción</span>
+  </div>
+</div>
+
+<!-- URGENCY -->
+<div class="urgency-wrap">
+  <div class="urgency">
+    <div class="urg-top"><i class="ti ti-flame"></i><span>Alta demanda esta semana</span></div>
+    <div class="urg-sub">El 87% de los cupos de personalización ya han sido reservados. Solo quedan <strong>13 cuadros disponibles.</strong></div>
+    <div class="bar-bg"><div class="bar-fill" id="stockBar"></div></div>
+    <div class="bar-lbl">87% reservado — 13 cupos restantes</div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<div class="section">
+  <div class="sec-lbl">Por qué elegirnos</div>
+  <div class="sec-title">Arte que se siente,<br>se toca y se escucha</div>
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num">+200</div><div class="stat-lbl">cuadros entregados</div></div>
+    <div class="stat-box"><div class="stat-num">24h</div><div class="stat-lbl">tiempo de producción</div></div>
+    <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">personalizado</div></div>
+  </div>
+  <div class="ben-grid">
+    <div class="ben-card"><div class="ben-icon"><i class="ti ti-palette"></i></div><h3>100% Personalizado</h3><p>Tu álbum, tu artista. Cada cuadro único.</p></div>
+    <div class="ben-card"><div class="ben-icon"><i class="ti ti-brand-spotify"></i></div><h3>Código Spotify</h3><p>Escanea y abre el álbum al instante. Real.</p></div>
+    <div class="ben-card"><div class="ben-icon"><i class="ti ti-diamond"></i></div><h3>Calidad Premium</h3><p>Impresión HD UV, marco y vidrio incluidos.</p></div>
+    <div class="ben-card"><div class="ben-icon"><i class="ti ti-truck"></i></div><h3>Envío Gratis</h3><p>A todo Colombia. Tracking incluido.</p></div>
+    <div class="ben-card"><div class="ben-icon"><i class="ti ti-cash"></i></div><h3>Contra Entrega</h3><p>Pagas cuando recibes. Sin tarjeta.</p></div>
+    <div class="ben-card"><div class="ben-icon"><i class="ti ti-clock-hour-4"></i></div><h3>Listo en 24h</h3><p>Producción express. Llega pronto.</p></div>
+  </div>
+</div>
+
+<!-- PROOF QUOTE — reemplaza la foto oscura -->
+<div class="proof-quote">
+  <span class="pq-icon">🎵</span>
+  <div class="pq-text">Más de <em>200 cuadros</em> entregados<br>a todo Colombia</div>
+  <div class="pq-sub">Cada uno diseñado, impreso y enmarcado con amor.<br>Tu música favorita, hecha arte físico permanente.</div>
+  <div class="pq-pills">
+    <div class="pq-pill"><i class="ti ti-map-pin"></i>Bogotá · Medellín · Cali · y más</div>
+    <div class="pq-pill"><i class="ti ti-star-filled"></i>5.0 promedio de reseñas</div>
+    <div class="pq-pill"><i class="ti ti-shield-check"></i>Compra 100% segura</div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section" style="margin-top:14px">
+  <div class="gallery-title">Así se ven <em>en tu pared</em></div>
+  <div class="gallery-grid">
+    <div class="g-item g-big">
+      <img src="https://drive.google.com/thumbnail?id=1Scq6pWF_EOhIi05OFw8ro2KVOHXlbsUj&sz=w800" alt="Tres cuadros AmaruPrints en mesa">
+      <div class="g-label">Producto terminado real</div>
+    </div>
+    <div class="g-item g-port">
+      <img src="https://drive.google.com/thumbnail?id=1NMgwCA_CLVZPDpVjy1WWPGFLcb-E8qB2&sz=w400" alt="Cuadro colgado en pared">
+      <div class="g-label">En tu pared</div>
+    </div>
+    <div class="g-item g-port">
+      <img src="https://drive.google.com/thumbnail?id=19XOYCpawpyKB-fXeDMAmR2sfi-ZAEdM7&sz=w400" alt="Cuadro Fuerza Regida">
+      <div class="g-label">Detalle premium</div>
+    </div>
+    <div class="g-item g-big">
+      <img src="https://drive.google.com/thumbnail?id=140ZRCXvzHHDVcTAjNiVuF_OjXFiBooxT&sz=w800" alt="Varios cuadros de álbumes">
+      <div class="g-label">Variedad de álbumes</div>
+    </div>
+    <div class="g-item g-sq">
+      <img src="https://drive.google.com/thumbnail?id=1NvE7K3U82g7cMiCXp_43MmO300HM_5hC&sz=w400" alt="Proceso">
+      <div class="g-label">Del taller</div>
+    </div>
+    <div class="g-item g-sq">
+      <img src="https://drive.google.com/thumbnail?id=1SQfrwNbb1edcKQfuRHilGcAsy0MMZeV2&sz=w400" alt="Acabado final">
+      <div class="g-label">Acabado final</div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS PLACEHOLDER -->
+<div class="test-section">
+  <div class="sec-lbl">Testimonios</div>
+  <div class="sec-title" style="margin-bottom:16px">Lo que dicen nuestros clientes</div>
+  <div class="test-placeholder">
+    <i class="ti ti-message-star"></i>
+    <h3>Fotos de testimonios próximamente</h3>
+    <p>Aquí van las fotos reales de clientes con sus cuadros.<br>¡Reemplaza este bloque cuando las tengas listas!</p>
+  </div>
+</div>
+
+<!-- REVIEWS carousel -->
+<div class="reviews-section" style="padding-top:0">
+  <div class="rev-carousel-outer">
+    <div class="rev-track" id="revTrack">
+      <div class="rev-slide">
+        <div class="review">
+          <div class="rev-head"><div class="rev-av">SG</div><div><div class="rev-name">Santiago G.</div><div class="rev-city">Medellín, Colombia</div></div><div class="rev-stars">★★★★★</div></div>
+          <div class="rev-text">Pedí el cuadro de FERXXO vol 1 y quedó increíble. El marco es sólido, la impresión nitidísima y el código Spotify funciona perfecto. Todo el mundo me pregunta dónde lo conseguí.</div>
+          <span class="verified"><i class="ti ti-circle-check"></i>Compra verificada</span>
+        </div>
+        <div class="review">
+          <div class="rev-head"><div class="rev-av sage">LM</div><div><div class="rev-name">Laura M.</div><div class="rev-city">Bogotá, Colombia</div></div><div class="rev-stars">★★★★★</div></div>
+          <div class="rev-text">Lo compré como regalo para mi novio — el cuadro de Bad Bunny. Llegó súper bien empacado, en perfectas condiciones. La calidad superó mis expectativas.</div>
+          <span class="verified"><i class="ti ti-circle-check"></i>Compra verificada</span>
+        </div>
+      </div>
+      <div class="rev-slide">
+        <div class="review">
+          <div class="rev-head"><div class="rev-av gold">CR</div><div><div class="rev-name">Camilo R.</div><div class="rev-city">Cali, Colombia</div></div><div class="rev-stars">★★★★★</div></div>
+          <div class="rev-text">Pedí el combo de 2 cuadros — Fuerza Regida y Kris R. Los dos espectaculares. Envío rápido, contra entrega sin problema. 100% recomendado.</div>
+          <span class="verified"><i class="ti ti-circle-check"></i>Compra verificada</span>
+        </div>
+        <div class="review">
+          <div class="rev-head"><div class="rev-av">VP</div><div><div class="rev-name">Valentina P.</div><div class="rev-city">Barranquilla, Colombia</div></div><div class="rev-stars">★★★★★</div></div>
+          <div class="rev-text">Excelente servicio. Me asesoraron bien por WhatsApp, el proceso fue fácil y el cuadro llegó en 4 días a Barranquilla. La atención al cliente es top.</div>
+          <span class="verified"><i class="ti ti-circle-check"></i>Compra verificada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rev-dots"><div class="rdot active" onclick="goRev(0)"></div><div class="rdot" onclick="goRev(1)"></div></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="sec-lbl">El proceso</div>
+  <div class="sec-title">¿Cómo funciona?</div>
+  <div class="steps-grid">
+    <div class="step-it"><div class="step-num">1</div><div class="step-lbl"><strong>Elige tu álbum</strong>El que más te marcó</div></div>
+    <div class="step-it"><div class="step-num">2</div><div class="step-lbl"><strong>Llena el form</strong>Datos de envío</div></div>
+    <div class="step-it"><div class="step-num">3</div><div class="step-lbl"><strong>Confirmamos</strong>Por WhatsApp</div></div>
+    <div class="step-it"><div class="step-num">4</div><div class="step-lbl"><strong>Recíbelo</strong>Listo para colgar</div></div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing">
+  <div class="sec-lbl">Elige tu combo</div>
+  <div class="sec-title">Precios y combos</div>
+  <div class="price-grid">
+    <div class="pcard" data-combo="1" data-name="Solo (1 Cuadro)" onclick="selectCombo(this)">
+      <div class="pcard-name">Solo</div>
+      <div class="pcard-hook">1 cuadro<br>enmarcado</div>
+      <div class="pcard-old" id="oldPrice1">$49.900</div>
+      <div class="pcard-price" id="price1">$44.900</div>
+      <div class="pcard-sub">COP</div>
+      <div class="pf"><i class="ti ti-check"></i>1 cuadro premium</div>
+      <div class="pf"><i class="ti ti-check"></i>Marco incluido</div>
+      <div class="pf"><i class="ti ti-check"></i>Envío gratis</div>
+      <div class="selected-check"><i class="ti ti-check"></i></div>
+    </div>
+    <div class="pcard featured selected" data-combo="2" data-name="Dúo (2 Cuadros)" onclick="selectCombo(this)">
+      <div class="pcard-ribbon">⚡ Más pedido</div>
+      <div class="pcard-name">Dúo</div>
+      <div class="pcard-hook">2 cuadros<br>enmarcados</div>
+      <div class="pcard-old" id="oldPrice2">$99.900</div>
+      <div class="pcard-price" id="price2">$79.900</div>
+      <div class="pcard-sub">COP — ahorras $20.000</div>
+      <div class="pf"><i class="ti ti-check"></i>2 cuadros premium</div>
+      <div class="pf"><i class="ti ti-check"></i>Marco incluido c/u</div>
+      <div class="pf"><i class="ti ti-check"></i>Envío gratis</div>
+      <div class="selected-check"><i class="ti ti-check"></i></div>
+    </div>
+    <div class="pcard" data-combo="3" data-name="Trío (3 Cuadros)" onclick="selectCombo(this)">
+      <div class="pcard-ribbon" style="background:var(--gold)">🔥 Mejor precio</div>
+      <div class="pcard-name">Trío</div>
+      <div class="pcard-hook">3 cuadros<br>enmarcados</div>
+      <div class="pcard-old" id="oldPrice3">$149.900</div>
+      <div class="pcard-price" id="price3">$109.900</div>
+      <div class="pcard-sub">COP — ahorras $40.000</div>
+      <div class="pf"><i class="ti ti-check"></i>3 cuadros premium</div>
+      <div class="pf"><i class="ti ti-check"></i>Marco incluido c/u</div>
+      <div class="pf"><i class="ti ti-check"></i>Envío gratis</div>
+      <div class="selected-check"><i class="ti ti-check"></i></div>
+    </div>
+  </div>
+  <div class="ship-banner"><i class="ti ti-truck"></i>Envío gratis a todo Colombia · Contra entrega disponible</div>
+</div>
+
+<!-- FORM -->
+<div class="form-section" id="form">
+  <div class="sec-lbl">Haz tu pedido</div>
+  <div class="sec-title">¡Personaliza tu cuadro!</div>
+  <div class="form-wrap">
+    <div class="form-head">
+      <h3>Confirma tu pedido</h3>
+      <p>Llenamos los datos y te escribimos por WhatsApp para confirmar</p>
+    </div>
+
+    <!-- PAY OPTIONS mejoradas -->
+    <div class="pay-section">
+      <div class="pay-lbl">Método de pago</div>
+      <div class="pay-options">
+        <div class="pay-opt" id="optCod" onclick="selectPay('cod')">
+          <div class="active-tick"><i class="ti ti-check"></i></div>
+          <div class="pay-opt-icon cod-ico"><i class="ti ti-motorbike"></i></div>
+          <div class="pay-opt-title">Contra Entrega</div>
+          <div class="pay-opt-sub">Pagas en efectivo cuando recibes tu cuadro.</div>
+          <div class="pay-chips">
+            <span class="chip"><i class="ti ti-cash"></i>Efectivo</span>
+          </div>
+        </div>
+        <div class="pay-opt active" id="optAnt" onclick="selectPay('ant')">
+          <div class="active-tick"><i class="ti ti-check"></i></div>
+          <div class="pay-opt-icon ant-ico"><i class="ti ti-device-mobile-dollar"></i></div>
+          <div class="pay-opt-title">Pago Anticipado</div>
+          <div class="pay-opt-sub">Transfiere antes y obtén el mejor precio.</div>
+          <div class="pay-chips">
+            <span class="chip"><i class="ti ti-brand-whatsapp"></i>Nequi</span>
+            <span class="chip">Daviplata</span>
+          </div>
+          <div class="save-badge"><i class="ti ti-discount-2"></i>Precio especial</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nequi-note" id="nequiNote">
+      <i class="ti ti-info-circle"></i>
+      <p>Al confirmar te enviamos el número de Nequi/Daviplata por WhatsApp. Una vez recibamos el pago, iniciamos producción inmediatamente.</p>
+    </div>
+
+    <div class="order-summary">
+      <div class="os-title"><i class="ti ti-receipt"></i>Resumen del pedido</div>
+      <div class="os-row"><span>Combo</span><span id="osCombo">Dúo (2 Cuadros)</span></div>
+      <div class="os-row"><span>Precio base</span><span id="osBase">$99.900</span></div>
+      <div class="os-row"><span>Método de pago</span><span id="osPago"><span class="method-badge">Anticipado</span></span></div>
+      <div class="os-row disc" id="osDescRow"><span>Descuento anticipado</span><span>−$10.000</span></div>
+      <div class="os-row"><span>Envío</span><span style="color:var(--sage-dark);font-weight:600">Gratis 🚚</span></div>
+      <div class="os-divider"></div>
+      <div class="os-total"><span>Total</span><span class="price" id="osTotal">$79.900</span></div>
+    </div>
+
+    <div class="field">
+      <label>Nombre completo *</label>
+      <input type="text" id="fNombre" placeholder="Tu nombre y apellido">
+      <div class="err-msg" id="nombreErr">Por favor ingresa tu nombre completo</div>
+    </div>
+    <div class="field">
+      <label>Teléfono / WhatsApp *</label>
+      <input type="tel" id="fTel" placeholder="3XX XXX XXXX" maxlength="12">
+      <div class="err-msg" id="telErr">Ingresa un número válido (ej: 3001234567)</div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Ciudad *</label>
+        <input type="text" id="fCiudad" placeholder="Bogotá, Medellín...">
+        <div class="err-msg" id="ciudadErr">Ingresa tu ciudad</div>
+      </div>
+      <div class="field">
+        <label>Departamento</label>
+        <input type="text" id="fDepto" placeholder="Cundinamarca...">
+      </div>
+    </div>
+    <div class="field">
+      <label>Dirección de envío *</label>
+      <input type="text" id="fDir" placeholder="Calle, carrera, barrio, apartamento...">
+      <div class="err-msg" id="dirErr">Ingresa tu dirección completa</div>
+    </div>
+    <div class="field">
+      <label>Álbum / Artista que quieres *</label>
+      <input type="text" id="fAlbum" placeholder="Ej: Ferxxo Vol 1 — Feid · Bad Bunny — UVST">
+      <div class="err-msg" id="albumErr">Cuéntanos qué álbum o artista quieres</div>
+    </div>
+    <div class="field">
+      <label>Notas adicionales (opcional)</label>
+      <textarea id="fNotas" placeholder="¿Algún detalle especial? ¿Es un regalo?"></textarea>
+    </div>
+
+    <!-- Google Sheets status -->
+    <div class="sheet-status" id="sheetStatus">
+      <i class="ti ti-check"></i>
+      <p>✅ Pedido registrado en nuestro sistema interno</p>
+    </div>
+
+    <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+      <i class="ti ti-brand-whatsapp"></i>
+      <span id="btnText">Confirmar pedido por WhatsApp</span>
+    </button>
+    <div class="trust-row">
+      <div class="trust-item"><i class="ti ti-shield-check"></i>100% seguro</div>
+      <div class="trust-item"><i class="ti ti-truck"></i>Envío gratis</div>
+      <div class="trust-item"><i class="ti ti-brand-whatsapp"></i>Confirmamos por WA</div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-sec">
+  <div class="sec-lbl">Preguntas frecuentes</div>
+  <div class="sec-title" style="margin-bottom:8px">¿Tienes dudas?</div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Cuánto tarda en llegar mi cuadro? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a"><p>Producción toma 24 horas. Bogotá, Medellín y Cali: 1-2 días hábiles. Otras ciudades: 2-4 días hábiles. Total estimado: 3-5 días hábiles.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Puedo pedir cualquier álbum? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a"><p>¡Sí! Cualquier álbum de cualquier artista. Reggaetón, trap, pop, rock, urbano — lo que quieras. Solo cuéntanos el nombre del álbum y el artista en el formulario.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Qué tamaño tiene el cuadro? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a"><p>Los cuadros estándar son de 20x30 cm con marco incluido. Si necesitas un tamaño especial, menciónalo en las notas del pedido.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Cómo funciona el pago contra entrega? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a"><p>Llenás el formulario, confirmamos por WhatsApp, producimos el cuadro y lo enviamos. Pagas en efectivo cuando el mensajero te lo entrega. Sin tarjeta, sin adelantos.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿El código Spotify es real? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a"><p>Sí, 100%. Es el código oficial del álbum. Abre la cámara de Spotify, escaneas el código en tu cuadro y te lleva directo al álbum. Siempre funciona.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">¿Envíos a toda Colombia? <i class="ti ti-chevron-down"></i></div>
+    <div class="faq-a"><p>Sí, a todo el territorio colombiano con envío gratis. Cobertura en más de 1.000 municipios. Recibes número de guía para tracking de tu pedido.</p></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">Amaru<em>Prints</em></div>
+  <p>Arte musical personalizado · Colombia</p>
+  <div class="footer-trust">
+    <span><i class="ti ti-shield-check"></i>Compra segura</span>
+    <span><i class="ti ti-truck"></i>Envío gratis</span>
+    <span><i class="ti ti-brand-whatsapp"></i>Soporte por WA</span>
+    <span><i class="ti ti-award"></i>Calidad premium</span>
+  </div>
+</footer>
+
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-price">
+    <span class="sticky-combo" id="stickyCombo">Combo Dúo (2 Cuadros)</span>
+    <strong id="stickyPrice">$79.900 COP</strong>
+  </div>
+  <button class="btn-pill" onclick="goForm()">Pedir ahora</button>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURACIÓN — editar aquí
+// ============================================================
+const PRICES = {
+  cod: { 1: 49900, 2: 89900, 3: 119900 },
+  ant: { 1: 39900, 2: 79900, 3: 109900 }
+};
+const WA_NUMBER = '573054094593';
+
+// ============================================================
+// GOOGLE SHEETS — reemplaza con tu URL de Web App
+// Instrucciones abajo en los comentarios
+// ============================================================
+const SHEETS_URL = 'TU_URL_GOOGLE_APPS_SCRIPT_AQUI';
+
+let state = { combo: 2, comboName: 'Dúo (2 Cuadros)', pay: 'ant' };
+let timerSecs = 2*3600+47*60+18;
+
+function fmt(n){return '$'+n.toLocaleString('es-CO')}
+function fmtCOP(n){return fmt(n)+' COP'}
+function goForm(){document.getElementById('form').scrollIntoView({behavior:'smooth'})}
+
+function updateSummary(){
+  const p=PRICES[state.pay][state.combo];
+  const base=PRICES.cod[state.combo];
+  const isAnt=state.pay==='ant';
+  document.getElementById('osCombo').textContent=state.comboName;
+  document.getElementById('osBase').textContent=fmt(base);
+  document.getElementById('osPago').innerHTML=isAnt
+    ?'<span class="method-badge"><i class="ti ti-device-mobile-dollar" style="font-size:10px"></i> Anticipado</span>'
+    :'<span class="method-badge"><i class="ti ti-motorbike" style="font-size:10px"></i> Contra Entrega</span>';
+  const dr=document.getElementById('osDescRow');
+  dr.style.display=isAnt?'flex':'none';
+  if(isAnt) dr.querySelector('span:last-child').textContent='−'+fmt(base-p);
+  document.getElementById('osTotal').textContent=fmt(p);
+  document.getElementById('stickyPrice').textContent=fmtCOP(p);
+  document.getElementById('stickyCombo').textContent=state.comboName;
+  const btn=document.getElementById('btnText');
+  if(btn) btn.textContent=isAnt?'Confirmar — Pago Anticipado':'Confirmar — Contra Entrega';
+  [1,2,3].forEach(i=>{const e=document.getElementById('price'+i);if(e)e.textContent=fmt(PRICES[state.pay][i]);});
+}
+
+function selectCombo(el){
+  document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.combo=parseInt(el.dataset.combo);
+  state.comboName=el.dataset.name;
+  updateSummary();
+}
+
+function selectPay(t){
+  state.pay=t;
+  document.getElementById('optCod').classList.toggle('active',t==='cod');
+  document.getElementById('optAnt').classList.toggle('active',t==='ant');
+  document.getElementById('nequiNote').classList.toggle('show',t==='ant');
+  updateSummary();
+}
+
+function toggleFaq(el){
+  const a=el.nextElementSibling;
+  const open=a.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.faq-q i').forEach(x=>x.style.transform='');
+  if(!open){a.classList.add('open');el.querySelector('i').style.transform='rotate(180deg)';}
+}
+
+function validatePhone(v){return /^3\d{9}$/.test(v.replace(/\s/g,''))}
+function validateText(v){return v.trim().length>=2}
+
+// ============================================================
+// ENVÍO A GOOGLE SHEETS (no-cors para evitar errores CORS)
+// ============================================================
+async function sendToSheets(data){
+  if(SHEETS_URL==='TU_URL_GOOGLE_APPS_SCRIPT_AQUI') return; // skip si no configurado
+  try{
+    await fetch(SHEETS_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    });
+    document.getElementById('sheetStatus').classList.add('show');
+  }catch(e){
+    console.warn('Sheets error (no crítico):',e);
+  }
+}
+
+async function submitForm(){
+  const nombre=document.getElementById('fNombre').value.trim();
+  const tel=document.getElementById('fTel').value.trim();
+  const ciudad=document.getElementById('fCiudad').value.trim();
+  const dir=document.getElementById('fDir').value.trim();
+  const album=document.getElementById('fAlbum').value.trim();
+  const notas=document.getElementById('fNotas').value.trim();
+  const depto=document.getElementById('fDepto').value.trim();
+
+  let ok=true;
+  [
+    {val:validateText(nombre),inputId:'fNombre',errId:'nombreErr'},
+    {val:validatePhone(tel),inputId:'fTel',errId:'telErr'},
+    {val:validateText(ciudad),inputId:'fCiudad',errId:'ciudadErr'},
+    {val:validateText(dir),inputId:'fDir',errId:'dirErr'},
+    {val:validateText(album),inputId:'fAlbum',errId:'albumErr'},
+  ].forEach(f=>{
+    document.getElementById(f.inputId).classList.toggle('error',!f.val);
+    document.getElementById(f.errId).classList.toggle('show',!f.val);
+    if(!f.val)ok=false;
+  });
+  if(!ok)return;
+
+  const p=PRICES[state.pay][state.combo];
+  const payLabel=state.pay==='ant'?'Anticipado (Nequi/Daviplata)':'Contra Entrega';
+  const now=new Date().toLocaleString('es-CO',{timeZone:'America/Bogota'});
+
+  // Datos para Google Sheets
+  const pedidoData={
+    fecha:now,
+    nombre,tel,ciudad,
+    departamento:depto||'',
+    direccion:dir,
+    album,notas:notas||'',
+    combo:state.comboName,
+    metodoPago:payLabel,
+    total:fmt(p)+' COP',
+    estado:'Pendiente confirmación'
+  };
+
+  const btn=document.getElementById('btnSubmit');
+  const btnTxt=document.getElementById('btnText');
+  btn.disabled=true;
+  btnTxt.textContent='Registrando pedido...';
+
+  // Enviar a Sheets (en paralelo, no bloquea WA)
+  await sendToSheets(pedidoData);
+
+  const msg=encodeURIComponent(
+    `¡Hola AmaruPrints! 🎵 Quiero hacer mi pedido:\n\n`+
+    `🛍️ *Combo:* ${state.comboName}\n`+
+    `🎶 *Álbum/Artista:* ${album}\n`+
+    `💳 *Pago:* ${payLabel}\n`+
+    `💰 *Total:* ${fmt(p)} COP\n\n`+
+    `👤 *Nombre:* ${nombre}\n`+
+    `📞 *Teléfono:* ${tel}\n`+
+    `📍 *Dirección:* ${dir}, ${ciudad}${depto?', '+depto:''}\n`+
+    (notas?`📝 *Notas:* ${notas}\n`:'')+
+    `\n¡Espero su confirmación! 🙌`
+  );
+
+  setTimeout(()=>{
+    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
+    btnTxt.textContent='✓ ¡Abre WhatsApp y envía el mensaje!';
+    btn.style.background='var(--sage)';
+  },600);
+}
+
+// Timer
+function syncTimers(s){
+  const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+  const str=[h,m,sec].map(x=>String(x).padStart(2,'0')).join(':');
+  const el=document.getElementById('navTimer');if(el)el.textContent=str;
+}
+setInterval(()=>{if(timerSecs>0){timerSecs--;syncTimers(timerSecs);}},1000);
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('stickyBar').classList.toggle('visible',window.scrollY>400);
+},{passive:true});
+
+let revCurrent=0;
+function goRev(idx){
+  revCurrent=idx;
+  document.getElementById('revTrack').style.transform=`translateX(-${idx*100}%)`;
+  document.querySelectorAll('.rdot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+}
+setInterval(()=>{goRev((revCurrent+1)%2);},5500);
+
+setTimeout(()=>{document.getElementById('stockBar').style.width='87%';},400);
+updateSummary();selectPay('ant');
+</script>
+</body>
+</html>
